@@ -16,6 +16,10 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "IOPn | Neo Citizenship",
   description: "Your gateway to global citizenship. Connect, apply, and manage citizenship applications across multiple countries.",
+  icons: {
+    icon: "/logo.jpg",
+    apple: "/logo.jpg",
+  },
 };
 
 export default function RootLayout({
