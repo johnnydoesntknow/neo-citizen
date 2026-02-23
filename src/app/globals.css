@@ -1,0 +1,145 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* Dark mode defaults (CSS variable-driven) */
+  --color-surface-base: var(--bg-base);
+  --color-surface-raised: var(--bg-raised);
+  --color-surface-overlay: var(--bg-overlay);
+  --color-surface-border: var(--bg-border);
+  --color-surface-border-hover: var(--bg-border-hover);
+  --color-surface-card: var(--bg-card);
+  --color-surface-sidebar: var(--bg-sidebar);
+  --color-text-primary: var(--fg-primary);
+  --color-text-muted: var(--fg-muted);
+  --color-text-faint: var(--fg-faint);
+
+  /* Brand colors (same in both modes) */
+  --color-purple-deep: #4105b6;
+  --color-purple-vivid: #6305b6;
+  --color-blue-bright: #2280cd;
+  --color-blue-light: var(--accent-blue);
+  --color-accent-green: var(--accent-green);
+  --color-accent-yellow: var(--accent-yellow);
+
+  /* Legacy aliases for compatibility */
+  --color-navy-950: var(--bg-base);
+  --color-navy-900: var(--bg-raised);
+  --color-navy-800: var(--bg-overlay);
+  --color-navy-700: var(--bg-border);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* ── Dark theme (default) ── */
+:root {
+  --bg-base: #0f112a;
+  --bg-raised: #141736;
+  --bg-overlay: #1d2449;
+  --bg-card: rgba(20, 23, 54, 0.85);
+  --bg-border: rgba(42, 51, 102, 0.5);
+  --bg-border-hover: rgba(34, 128, 205, 0.4);
+  --bg-sidebar: rgba(15, 17, 42, 0.95);
+  --fg-primary: #f8fdf1;
+  --fg-muted: #9ba1b5;
+  --fg-faint: rgba(155, 161, 181, 0.55);
+  --accent-blue: #b0efff;
+  --accent-green: #4ade80;
+  --accent-yellow: #facc15;
+  --badge-green-bg: rgba(74, 222, 128, 0.2);
+  --badge-yellow-bg: rgba(250, 204, 21, 0.2);
+  --wallet-btn-bg: rgba(29, 36, 73, 0.5);
+  --wallet-btn-border: rgba(42, 51, 102, 0.4);
+  --gradient-glow-purple: rgba(65, 5, 182, 0.2);
+  --gradient-glow-blue: rgba(34, 128, 205, 0.15);
+  --grid-line: rgba(176, 239, 255, 0.3);
+  --grid-opacity: 0.03;
+  --logo-shadow: none;
+  --blue-active-bg: rgba(34, 128, 205, 0.15);
+  --stat-step-bg: rgba(34, 128, 205, 0.2);
+  --tag-bg: rgba(29, 36, 73, 0.8);
+}
+
+/* ── Light theme ── */
+:root.light {
+  --bg-base: #f4f6fb;
+  --bg-raised: #ffffff;
+  --bg-overlay: #e8ecf4;
+  --bg-card: rgba(255, 255, 255, 0.8);
+  --bg-border: rgba(200, 210, 230, 0.6);
+  --bg-border-hover: rgba(34, 128, 205, 0.35);
+  --bg-sidebar: rgba(255, 255, 255, 0.97);
+  --fg-primary: #0f112a;
+  --fg-muted: #5b6078;
+  --fg-faint: rgba(91, 96, 120, 0.45);
+  --accent-blue: #1a6fb5;
+  --accent-green: #16a34a;
+  --accent-yellow: #ca8a04;
+  --badge-green-bg: rgba(22, 163, 74, 0.12);
+  --badge-yellow-bg: rgba(202, 138, 4, 0.12);
+  --wallet-btn-bg: rgba(232, 236, 244, 0.7);
+  --wallet-btn-border: rgba(200, 210, 230, 0.5);
+  --gradient-glow-purple: rgba(65, 5, 182, 0.06);
+  --gradient-glow-blue: rgba(34, 128, 205, 0.06);
+  --grid-line: rgba(15, 17, 42, 0.15);
+  --grid-opacity: 0.04;
+  --logo-shadow: 0 2px 12px rgba(0,0,0,0.1);
+  --blue-active-bg: rgba(34, 128, 205, 0.1);
+  --stat-step-bg: rgba(34, 128, 205, 0.1);
+  --tag-bg: rgba(232, 236, 244, 0.9);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--bg-overlay) var(--bg-base);
+}
+
+body {
+  background: var(--bg-base);
+  color: var(--fg-primary);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* ── Animations ── */
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 8s ease infinite;
+}
+
+.glow-blue {
+  box-shadow: 0 0 20px rgba(34, 128, 205, 0.3), 0 0 60px rgba(34, 128, 205, 0.1);
+}
+
+.glow-purple {
+  box-shadow: 0 0 20px rgba(65, 5, 182, 0.3), 0 0 60px rgba(65, 5, 182, 0.1);
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(176, 239, 255, 0.2); }
+  50% { box-shadow: 0 0 40px rgba(176, 239, 255, 0.4), 0 0 80px rgba(34, 128, 205, 0.2); }
+}
+
+.pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+:root.light .pulse-glow {
+  animation: none;
+  box-shadow: 0 2px 12px rgba(34, 128, 205, 0.25);
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
