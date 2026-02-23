@@ -10,7 +10,7 @@ export default function HubLayout({
   return (
     <div className="min-h-screen bg-surface-base transition-colors duration-300">
       <Sidebar />
-      <div className="ml-64 min-h-screen">
+      <div className="min-h-screen lg:ml-64">
         <WalletBar />
         <main>{children}</main>
       </div>

@@ -54,7 +54,7 @@ export default function ConnectPage() {
       {/* Animated squiggly lines */}
       <SquigglyLines />
 
-      <main className="relative z-10 flex w-full max-w-md flex-col items-center px-6">
+      <main className="relative z-10 flex w-full max-w-md flex-col items-center px-4 sm:px-6">
         {/* Logo */}
         <div className="mb-8">
           <Image
@@ -62,14 +62,14 @@ export default function ConnectPage() {
             alt="IOPn"
             width={100}
             height={100}
-            className="rounded-2xl"
+            className="h-20 w-20 rounded-2xl sm:h-[100px] sm:w-[100px]"
             style={{ boxShadow: "var(--logo-shadow)" }}
             priority
           />
         </div>
 
         {/* Title */}
-        <h1 className="mb-2 text-center text-3xl font-bold tracking-tight text-text-primary">
+        <h1 className="mb-2 text-center text-2xl font-bold tracking-tight text-text-primary sm:text-3xl">
           Become an IOPn Neo Citizen.
         </h1>
         <p className="mb-10 text-center text-sm text-text-muted">

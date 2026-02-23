@@ -254,7 +254,7 @@ export default function CountryPage() {
   const isLive = country.status === "live";
 
   return (
-    <div className="relative px-8 py-8">
+    <div className="relative px-4 py-6 sm:px-8 sm:py-8">
       {/* Background image for São Tomé */}
       {slug === "sao-tome" && (
         <div
@@ -275,12 +275,12 @@ export default function CountryPage() {
       </div>
 
       {/* Country Header */}
-      <div className="relative mb-8 flex items-start justify-between">
+      <div className="relative mb-8 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div className="flex items-center gap-4">
-          <span className="text-5xl">{country.flag}</span>
+          <span className="text-4xl sm:text-5xl">{country.flag}</span>
           <div>
-            <div className="flex items-center gap-3">
-              <h1 className="text-2xl font-bold text-text-primary">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+              <h1 className="text-xl font-bold text-text-primary sm:text-2xl">
                 {country.name}
               </h1>
               {isLive ? (
@@ -308,14 +308,14 @@ export default function CountryPage() {
             href="https://saotome.netlify.app/saotome"
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-xl bg-gradient-to-r from-blue-bright to-purple-deep px-6 py-3 text-sm font-semibold text-white transition-all hover:opacity-90 pulse-glow"
+            className="w-full rounded-xl bg-gradient-to-r from-blue-bright to-purple-deep px-6 py-3 text-center text-sm font-semibold text-white transition-all hover:opacity-90 pulse-glow sm:w-auto"
           >
             Start Application
           </a>
         ) : (
           <button
             disabled
-            className="cursor-not-allowed rounded-xl border border-surface-border bg-surface-card px-6 py-3 text-sm font-medium text-text-muted"
+            className="w-full cursor-not-allowed rounded-xl border border-surface-border bg-surface-card px-6 py-3 text-sm font-medium text-text-muted sm:w-auto"
           >
             Notify Me When Available
           </button>
@@ -323,7 +323,7 @@ export default function CountryPage() {
       </div>
 
       {/* Quick stats */}
-      <div className="relative mb-8 grid grid-cols-3 gap-4">
+      <div className="relative mb-8 grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4">
         <div className="rounded-xl border border-surface-border bg-surface-card/90 backdrop-blur-sm px-5 py-4">
           <p className="text-[10px] uppercase tracking-wider text-text-faint">
             Minimum Investment
@@ -350,9 +350,9 @@ export default function CountryPage() {
         </div>
       </div>
 
-      <div className="relative grid grid-cols-3 gap-6">
+      <div className="relative grid grid-cols-1 gap-6 lg:grid-cols-3">
         {/* Main content - 2 columns */}
-        <div className="col-span-2 space-y-6">
+        <div className="space-y-6 lg:col-span-2">
           {/* About */}
           <div className="rounded-xl border border-surface-border bg-surface-card/90 backdrop-blur-sm p-6">
             <h2 className="mb-3 text-lg font-semibold text-text-primary">

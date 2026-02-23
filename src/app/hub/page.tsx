@@ -51,19 +51,19 @@ const stats = [
 
 export default function HubPage() {
   return (
-    <div className="px-8 pb-8">
+    <div className="px-4 pb-8 sm:px-8">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-text-primary">
+        <h1 className="text-xl font-bold text-text-primary sm:text-2xl">
           Become an IOPn Neo Citizen today
         </h1>
-        <p className="mt-1 text-base text-text-muted">
+        <p className="mt-1 text-sm text-text-muted sm:text-base">
           Explore citizenship programs from around the world and start your application
         </p>
       </div>
 
       {/* Stats row */}
-      <div className="mb-8 grid grid-cols-4 gap-4">
+      <div className="mb-8 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
         {stats.map((stat) => (
           <div
             key={stat.label}
@@ -77,7 +77,7 @@ export default function HubPage() {
       </div>
 
       {/* Country Grid */}
-      <div className="mb-4 flex items-center justify-between">
+      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h2 className="text-lg font-semibold text-text-primary">
           Programs
         </h2>

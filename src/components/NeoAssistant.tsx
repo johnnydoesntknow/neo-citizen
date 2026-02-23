@@ -137,12 +137,11 @@ export default function NeoAssistant() {
     <>
       {/* Chat Panel */}
       <div
-        className={`fixed bottom-24 right-6 z-50 flex w-[380px] flex-col overflow-hidden rounded-2xl border border-surface-border bg-surface-raised shadow-2xl backdrop-blur-xl transition-all duration-200 ease-out ${
+        className={`fixed z-50 flex flex-col overflow-hidden border border-surface-border bg-surface-raised shadow-2xl backdrop-blur-xl transition-all duration-200 ease-out inset-0 sm:inset-auto sm:bottom-24 sm:right-6 sm:h-[500px] sm:max-h-[calc(100vh-120px)] sm:w-[380px] sm:rounded-2xl ${
           isOpen
             ? "scale-100 opacity-100"
             : "pointer-events-none scale-95 translate-y-2 opacity-0"
         }`}
-        style={{ height: "500px", maxHeight: "calc(100vh - 120px)" }}
         role="dialog"
         aria-label="NEO Assistant chat"
       >
@@ -290,7 +289,7 @@ export default function NeoAssistant() {
       {/* Floating Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-r from-blue-bright to-purple-deep text-white shadow-lg transition-all duration-200 hover:scale-105 hover:shadow-xl ${
+        className={`fixed bottom-4 right-4 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-r from-blue-bright to-purple-deep text-white shadow-lg transition-all duration-200 hover:scale-105 hover:shadow-xl sm:bottom-6 sm:right-6 sm:h-14 sm:w-14 ${
           !isOpen ? "pulse-glow" : ""
         }`}
         aria-label={isOpen ? "Close NEO Assistant" : "Open NEO Assistant"}

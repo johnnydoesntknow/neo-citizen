@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
 import { useTheme } from "@/components/ThemeProvider";
 
 const navItems = [
@@ -53,136 +54,188 @@ const programs = [
 export default function Sidebar() {
   const pathname = usePathname();
   const { theme, toggleTheme } = useTheme();
+  const [isOpen, setIsOpen] = useState(false);
+
+  // Close sidebar on route change (mobile)
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
+
+  // Close on Escape
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsOpen(false);
+    };
+    document.addEventListener("keydown", handler);
+    return () => document.removeEventListener("keydown", handler);
+  }, []);
 
   return (
-    <aside className="fixed left-0 top-0 z-40 flex h-screen w-64 flex-col border-r border-surface-border bg-surface-sidebar backdrop-blur-xl transition-colors duration-300">
-      {/* Logo area */}
-      <div className="flex items-center gap-3 px-5 py-6">
-        <Image
-          src="/logo.jpg"
-          alt="IOPn"
-          width={40}
-          height={40}
-          className="rounded-lg"
-          style={{ boxShadow: "var(--logo-shadow)" }}
+    <>
+      {/* Mobile hamburger button */}
+      <button
+        onClick={() => setIsOpen(true)}
+        className="fixed left-4 top-4 z-50 flex h-10 w-10 items-center justify-center rounded-lg border border-surface-border bg-surface-card text-text-primary shadow-lg backdrop-blur-xl transition-colors hover:border-surface-border-hover lg:hidden"
+        aria-label="Open menu"
+      >
+        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+      </button>
+
+      {/* Backdrop overlay (mobile only) */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm lg:hidden"
+          onClick={() => setIsOpen(false)}
         />
-        <div className="flex flex-col">
-          <span className="text-base font-bold tracking-wide text-text-primary leading-tight">
-            IOPn
-          </span>
-          <span className="text-[11px] font-medium text-text-muted leading-tight">
-            Neo Citizenship
-          </span>
+      )}
+
+      {/* Sidebar */}
+      <aside
+        className={`fixed left-0 top-0 z-40 flex h-screen w-64 flex-col border-r border-surface-border bg-surface-sidebar backdrop-blur-xl transition-all duration-300 ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        } lg:translate-x-0`}
+      >
+        {/* Logo area */}
+        <div className="flex items-center gap-3 px-5 py-6">
+          <Image
+            src="/logo.jpg"
+            alt="IOPn"
+            width={40}
+            height={40}
+            className="rounded-lg"
+            style={{ boxShadow: "var(--logo-shadow)" }}
+          />
+          <div className="flex flex-col">
+            <span className="text-base font-bold tracking-wide text-text-primary leading-tight">
+              IOPn
+            </span>
+            <span className="text-[11px] font-medium text-text-muted leading-tight">
+              Neo Citizenship
+            </span>
+          </div>
+
+          {/* Theme toggle */}
+          <button
+            onClick={toggleTheme}
+            className="ml-auto rounded-md border border-surface-border p-1.5 text-text-muted transition-colors hover:border-surface-border-hover hover:text-text-primary"
+            title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+          >
+            {theme === "dark" ? (
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+              </svg>
+            ) : (
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+              </svg>
+            )}
+          </button>
+
+          {/* Close button (mobile only) */}
+          <button
+            onClick={() => setIsOpen(false)}
+            className="rounded-md border border-surface-border p-1.5 text-text-muted transition-colors hover:border-surface-border-hover hover:text-text-primary lg:hidden"
+            aria-label="Close menu"
+          >
+            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
         </div>
 
-        {/* Theme toggle */}
-        <button
-          onClick={toggleTheme}
-          className="ml-auto rounded-md border border-surface-border p-1.5 text-text-muted transition-colors hover:border-surface-border-hover hover:text-text-primary"
-          title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
-        >
-          {theme === "dark" ? (
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
-            </svg>
-          ) : (
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
-            </svg>
-          )}
-        </button>
-      </div>
+        {/* Divider */}
+        <div className="mx-4 h-px bg-surface-border" />
 
-      {/* Divider */}
-      <div className="mx-4 h-px bg-surface-border" />
-
-      {/* Main navigation */}
-      <nav className="flex-1 px-3 py-4">
-        <p className="mb-2 px-3 text-[10px] font-semibold uppercase tracking-widest text-text-muted">
-          Navigation
-        </p>
-        <ul className="flex flex-col gap-1">
-          {navItems.map((item) => {
-            const isActive =
-              item.href === "/hub"
-                ? pathname === "/hub"
-                : pathname.startsWith(item.href);
-            return (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-150"
-                  style={{
-                    background: isActive ? "var(--blue-active-bg)" : "transparent",
-                    color: isActive ? "var(--accent-blue)" : "var(--fg-muted)",
-                  }}
-                >
-                  {item.icon}
-                  {item.label}
-                  {isActive && (
-                    <div className="ml-auto h-1.5 w-1.5 rounded-full bg-blue-light" />
-                  )}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-
-        {/* Countries section */}
-        <p className="mb-2 mt-6 px-3 text-[10px] font-semibold uppercase tracking-widest text-text-muted">
-          Active Programs
-        </p>
-        <ul className="flex flex-col gap-1">
-          {programs.map((prog) => {
-            const isActive = pathname === prog.href;
-            return (
-              <li key={prog.href}>
-                <Link
-                  href={prog.href}
-                  className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-150"
-                  style={{
-                    background: isActive ? "var(--blue-active-bg)" : "transparent",
-                    color: isActive ? "var(--accent-blue)" : "var(--fg-muted)",
-                  }}
-                >
-                  <span className="text-base">{prog.flag}</span>
-                  {prog.label}
-                  <span
-                    className="ml-auto rounded-full px-2 py-0.5 text-[10px] font-medium"
+        {/* Main navigation */}
+        <nav className="flex-1 px-3 py-4">
+          <p className="mb-2 px-3 text-[10px] font-semibold uppercase tracking-widest text-text-muted">
+            Navigation
+          </p>
+          <ul className="flex flex-col gap-1">
+            {navItems.map((item) => {
+              const isActive =
+                item.href === "/hub"
+                  ? pathname === "/hub"
+                  : pathname.startsWith(item.href);
+              return (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-150"
                     style={{
-                      background: prog.status === "live" ? "var(--badge-green-bg)" : "var(--badge-yellow-bg)",
-                      color: prog.status === "live" ? "var(--accent-green)" : "var(--accent-yellow)",
+                      background: isActive ? "var(--blue-active-bg)" : "transparent",
+                      color: isActive ? "var(--accent-blue)" : "var(--fg-muted)",
                     }}
                   >
-                    {prog.status === "live" ? "Live" : "Soon"}
-                  </span>
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-      </nav>
+                    {item.icon}
+                    {item.label}
+                    {isActive && (
+                      <div className="ml-auto h-1.5 w-1.5 rounded-full bg-blue-light" />
+                    )}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
 
-      {/* Ecosystem CTA */}
-      <div className="mx-3 mb-4 rounded-xl border border-purple-deep/30 bg-gradient-to-b from-purple-deep/10 to-transparent p-4">
-        <p className="text-xs font-semibold text-text-primary">
-          Explore the IOPn Ecosystem
-        </p>
-        <p className="mt-1 text-[10px] leading-relaxed text-text-muted">
-          Discover DeFi, governance, staking, and more across the IOPn network.
-        </p>
-        <a
-          href="https://iopn.io"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-3 flex items-center gap-1.5 text-[11px] font-semibold text-blue-light transition-colors hover:text-blue-bright"
-        >
-          Visit iopn.io
-          <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
-          </svg>
-        </a>
-      </div>
-    </aside>
+          {/* Countries section */}
+          <p className="mb-2 mt-6 px-3 text-[10px] font-semibold uppercase tracking-widest text-text-muted">
+            Active Programs
+          </p>
+          <ul className="flex flex-col gap-1">
+            {programs.map((prog) => {
+              const isActive = pathname === prog.href;
+              return (
+                <li key={prog.href}>
+                  <Link
+                    href={prog.href}
+                    className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-150"
+                    style={{
+                      background: isActive ? "var(--blue-active-bg)" : "transparent",
+                      color: isActive ? "var(--accent-blue)" : "var(--fg-muted)",
+                    }}
+                  >
+                    <span className="text-base">{prog.flag}</span>
+                    {prog.label}
+                    <span
+                      className="ml-auto rounded-full px-2 py-0.5 text-[10px] font-medium"
+                      style={{
+                        background: prog.status === "live" ? "var(--badge-green-bg)" : "var(--badge-yellow-bg)",
+                        color: prog.status === "live" ? "var(--accent-green)" : "var(--accent-yellow)",
+                      }}
+                    >
+                      {prog.status === "live" ? "Live" : "Soon"}
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+
+        {/* Ecosystem CTA */}
+        <div className="mx-3 mb-4 rounded-xl border border-purple-deep/30 bg-gradient-to-b from-purple-deep/10 to-transparent p-4">
+          <p className="text-xs font-semibold text-text-primary">
+            Explore the IOPn Ecosystem
+          </p>
+          <p className="mt-1 text-[10px] leading-relaxed text-text-muted">
+            Discover DeFi, governance, staking, and more across the IOPn network.
+          </p>
+          <a
+            href="https://iopn.io"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-3 flex items-center gap-1.5 text-[11px] font-semibold text-blue-light transition-colors hover:text-blue-bright"
+          >
+            Visit iopn.io
+            <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+            </svg>
+          </a>
+        </div>
+      </aside>
+    </>
   );
 }

@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function ProfilePage() {
   return (
-    <div className="px-8 pb-8">
+    <div className="px-4 pb-8 sm:px-8">
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-text-primary">My Profile</h1>
@@ -13,9 +13,9 @@ export default function ProfilePage() {
         </p>
       </div>
 
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         {/* Main content - 2 columns */}
-        <div className="col-span-2 space-y-6">
+        <div className="space-y-6 lg:col-span-2">
           {/* Wallet */}
           <div className="rounded-xl border border-surface-border bg-surface-card p-6">
             <h2 className="mb-4 text-lg font-semibold text-text-primary">
@@ -55,7 +55,7 @@ export default function ProfilePage() {
             <h2 className="mb-4 text-lg font-semibold text-text-primary">
               Personal Details
             </h2>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div>
                 <label className="mb-1 block text-[10px] uppercase tracking-wider text-text-faint">
                   Full Name

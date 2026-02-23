@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function WalletBar() {
   return (
-    <div className="flex items-center justify-end px-8 py-3">
+    <div className="flex items-center justify-end px-4 py-3 sm:px-8">
       <div className="flex items-center gap-3">
         <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-purple-deep to-blue-bright text-xs font-bold text-white">
           0x
